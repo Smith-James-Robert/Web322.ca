@@ -21,8 +21,7 @@
             <div class="col">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href='/blog'  class="nav-link px-2 text-white">Blog</a></li>
-              <li><a href='/registration'  class="nav-link px-2 text-white">Sign Up</a></li>
-            <li><a href='/login'  class="nav-link px-2 text-white">Log In</a></li>
+            <li><a href='/dashboard' class="nav-link px-2 text-white">Dashboard</a></li>
             </ul>
           </div>
           </div>
@@ -33,24 +32,46 @@
             <h3>Hello Administrator {{data.FirstName}} {{data.LastName}}</h3>
             <p>Your username is: {{data.FirstName}}</p>
             <p>Your email is: {{data.emailAddress}}</p>
+            <form action="/logOut" method="POST" enctype="multipart/form-data">
+            <h3>Log Out</h3>
+            <input type="submit" value="Log Out">
+            </form>
             <br>
-            
+            <div class="col-6 align-self-center text-left border">
             <form action="/addFile" method="POST" enctype="multipart/form-data">
             <h3>Add Article</h3>
-        <label for="photo">Article Title</label>
+            <div class="mb-3">
+        <label for="photo">Article Title</label><br/>
+       
         <input id="title" type="text" name="title"/><br/>
-        <label for="photo">Date</label>
+         </div>
+         <div class="mb-3">
+        <label for="photo">Date</label> <br/>
         <input id="date" type="date" name="date"/><br/>
-         <label for="photo">Content</label>
+        </div>
+        <div class="mb-3">
+         <label for="content">Content</label><br/>
         <input id="content" type="textarea" name="content"/><br/>
-         <label for="photo">Article Image</label>
+        </div>
+        <div class="mb-3">
+         <label for="photo">Article Image</label><br/>
         <input id="photo" type="file" name="photo"/><br />
+        </div>
+        <div class="mb-3 form-check">
         <input type="submit" value="Submit File" />
             </form>
+             </div>
+              </div>
+              <br />
+              <br />
+<div class="col-6 align-self-center text-center border">
             <form action="/viewFiles" method="POST" enctype="multipart/form-data">
               <h3>View list of All Articles</h3>
               <input type="submit" value="View List">
             </form>
+       
+        </div>
+       
         {{#each articles}}
         <tr>
           <td>ID:{{id}}<br>
@@ -62,19 +83,21 @@
 
         {{/each}}
         <br>
+        <div class="col-6 align-self-center text-left border">
         <form action="/updateFile" method="POST" enctype="application/x-www-form-urlencoded">
-        <label for="id">ID</label>
+        <label for="id">ID</label><br />
         <input id="id" type="text" name="id"/><br/>
-        <label for="title">Article Title</label>
+        <label for="title">Article Title</label><br />
         <input id="title" type="text" name="title"/><br/>
-        <label for="date">Date</label>
+        <label for="date">Date</label><br />
         <input id="date" type="date" name="date"/><br/>
-         <label for="content">Content</label>
+         <label for="content">Content</label><br />
         <input id="content" type="textarea" name="content"/><br/>
-        <label for="image">Image Name</label>
+        <label for="image">Image Name</label><br />
         <input id="image" type="text" name="image"/><br>
           <input type="submit" value="Update Article">
         </form>
+        </div>
             </div>
           </div>
 </body>

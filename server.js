@@ -51,7 +51,7 @@ const storage = multer.diskStorage({
 })
 app.use(clientSessions({
     cookieName:"testCookie",
-    secret:"21",
+    secret:"an arbitrarily long string",
     duration:10*60*1000,
     activeDuration:3*60*1000
     
@@ -137,6 +137,36 @@ app.get("/registration", function(req,res){
         layout:false
     });
 })
+app.post("/logOut",function (req,res){
+    req.testCookie.reset();
+    res.redirect("/blog");
+});
+app.get("/dashboard", function(req,res)
+{
+    console.log(req.testCookie);
+    if (req.testCookie.userInfo!=undefined)
+    {
+        if (req.testCookie.userInfo.admin)
+        {
+            res.render('admindashboard',{
+                layout:false,
+                data:req.testCookie.userInfo
+            })
+        }
+        else
+        {
+            res.render('dashboard',{
+                layout:false,
+                data:req.testCookie.userInfo
+            })
+        }
+    }
+    else
+    {
+        res.redirect('/login');
+    }
+}
+);
 app.get("/blog", function(req,res){
     var someData;
     var mainArticle=0;
@@ -232,17 +262,16 @@ if(accounts.admin)
 else
 {
     req.testCookie.userInfo={
-        value1:false
+        admin:false,
+        user:accounts.user,
+        emailAddress:accounts.emailAddress,
+        FirstName:accounts.fName,
+        LastName:accounts.lName
     }
 res.render('dashboard',{
     
     layout:false,
-    data:{
-        user:accounts.user,
-        emailAddress:accounts.emailAddress,
-        FirstName:accounts.fName,
-        LastName:accounts.lName,
-    }
+    data:req.testCookie.userInfo
  })
 }
 }
